@@ -1,8 +1,10 @@
 package fr.eni.tpcaveAVin.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import fr.eni.tpcaveAVin.bo.Bouteille;
@@ -24,35 +26,6 @@ public class BouteilleServiceImpl implements BouteilleService {
 		this.bouteilleRepository = bouteilleRepository;
 		this.couleurRepository = couleurRepository;
 		this.regionRepository = regionRepository;
-	}
-
-	@Override
-	public List<Bouteille> getBouteilles() {
-		return bouteilleRepository.findAll();
-	}
-
-	@Override
-	public Bouteille getBouteilleByID(int id) {
-		return bouteilleRepository.findById(id).get();
-	}
-
-	@Override
-	public void ajouterBouteille(Bouteille bouteille) {
-
-		bouteilleRepository.save(bouteille);
-
-	}
-
-	@Override
-	public void supprimerBouteille(int id) {
-		bouteilleRepository.deleteById(id);
-
-	}
-
-	@Override
-	public void modifierBouteille(Bouteille bouteille) {
-		ajouterBouteille(bouteille);
-
 	}
 
 	public BouteilleRepository getBouteilleRepository() {
@@ -83,4 +56,56 @@ public class BouteilleServiceImpl implements BouteilleService {
 		return regionRepository.findAll();
 	}
 
+	@Override
+	public List<Bouteille> getBouteilles() throws SQLException {
+		try {
+			return bouteilleRepository.findAll();
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+	}
+
+	@Override
+	public Bouteille getBouteilleByID(int id) throws SQLException {
+		try {
+			return bouteilleRepository.findById(id).get();
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+	}
+
+	@Override
+	public void ajouterBouteille(Bouteille bouteille) throws SQLException {
+		try {
+			bouteilleRepository.save(bouteille);
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+
+	}
+
+	@Override
+	public void supprimerBouteille(int id) throws SQLException {
+		try {
+			bouteilleRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+
+	}
+
+	@Override
+	public void modifierBouteille(Bouteille bouteille) throws SQLException {
+		ajouterBouteille(bouteille);
+
+	}
+
+	@Override
+	public List<Bouteille> findAll(Sort.Direction direction, String key) throws SQLException {
+		try {
+			return bouteilleRepository.findAll(Sort.by(direction, key));
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+	}
 }
