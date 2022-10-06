@@ -15,12 +15,13 @@ public class Bouteille {
 	@GeneratedValue
 	private int id;
 
-	@Size(min = 5, max = 50)
+	@NotNull(message = "Le nom est obligatoire et il contient entre 5 et 50 caractères")
+	@Size(min = 5, max = 50, message = "La taille du nom est comprise entre 5 et 50 caractères")
 	private String nom;
 	private boolean isPetillant;
 	private String millesime;
 
-	@Min(1)
+	@Min(value = 1, message = "Votre quantité de bouteille est insuffisante")
 	private int quantite;
 
 	@NotNull(message = "La couleur est obligatoire")
@@ -32,6 +33,8 @@ public class Bouteille {
 	private Region region;
 
 	public Bouteille() {
+		couleur = new Couleur();
+		region = new Region();
 	}
 
 	public Bouteille(String nom, boolean isPetillant, String millesime, int quantite) {
@@ -48,6 +51,31 @@ public class Bouteille {
 		this.isPetillant = isPetillant;
 		this.millesime = millesime;
 		this.quantite = quantite;
+	}
+
+	public Bouteille(int id, @Size(min = 5, max = 50) String nom, boolean isPetillant, String millesime,
+			@Min(1) int quantite, @NotNull(message = "La couleur est obligatoire") Couleur couleur,
+			@NotNull(message = "La région est obligatoire") Region region) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.isPetillant = isPetillant;
+		this.millesime = millesime;
+		this.quantite = quantite;
+		this.couleur = couleur;
+		this.region = region;
+	}
+
+	public Bouteille(@Size(min = 5, max = 50) String nom, boolean isPetillant, String millesime, @Min(1) int quantite,
+			@NotNull(message = "La couleur est obligatoire") Couleur couleur,
+			@NotNull(message = "La région est obligatoire") Region region) {
+		super();
+		this.nom = nom;
+		this.isPetillant = isPetillant;
+		this.millesime = millesime;
+		this.quantite = quantite;
+		this.couleur = couleur;
+		this.region = region;
 	}
 
 	public int getId() {

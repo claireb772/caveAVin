@@ -33,12 +33,12 @@ public class BouteilleServiceImpl implements BouteilleService {
 
 	@Override
 	public Bouteille getBouteilleByID(int id) {
-		// TODO Auto-generated method stub
 		return bouteilleRepository.findById(id).get();
 	}
 
 	@Override
 	public void ajouterBouteille(Bouteille bouteille) {
+
 		bouteilleRepository.save(bouteille);
 
 	}
@@ -53,18 +53,6 @@ public class BouteilleServiceImpl implements BouteilleService {
 	public void modifierBouteille(Bouteille bouteille) {
 		ajouterBouteille(bouteille);
 
-	}
-
-	@Override
-	public void modifierPartiellementBouteille(int id, Bouteille bouteille) {
-		Bouteille bouteilleTemp = getBouteilleByID(id);
-		bouteilleTemp.setId(bouteille.getId());
-		bouteilleTemp.setNom(bouteille.getNom());
-		bouteilleTemp.setMillesime(bouteille.getMillesime());
-		bouteilleTemp.setPetillant(bouteille.isPetillant());
-		bouteilleTemp.setQuantite(bouteille.getQuantite());
-		bouteilleTemp.setCouleur(bouteille.getCouleur());
-		bouteilleTemp.setRegion(bouteille.getRegion());
 	}
 
 	public BouteilleRepository getBouteilleRepository() {

@@ -16,6 +16,4 @@ public interface BouteilleService {
 
 	void modifierBouteille(Bouteille bouteille);
 
-	void modifierPartiellementBouteille(int id, Bouteille bouteille);
-
 }
